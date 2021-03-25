@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+
+int* mult_polynom(int* a, int n, int* b, int m) {
+
+	int* p = new int[n + 1]{ 0 };
+
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			p[i + j] += (a[i] * b[j]);
+		}
+	}
+
+	return p;
+}
+
+int main()
+{
+	cout << "n = ";
+	int n;
+	cin >> n;
+
+	int* c = new int[n];
+	for (int i = 0; i < n; i++)
+	{
+		cout << "c[" << i << "] = ";
+		cin >> c[i];
+	}
+
+	int* a = new int[] { 1, -c[0] };
+	int size = 2;
+
+	for (int i = 1; i < n; i++)
+	{
+		int b[] = { 1, -c[i] };
+
+		int* p = mult_polynom(a, size, b, 2);
+		size++;
+		delete[] a;
+		a = p;
+	}
+
+	for (int i = 0; i < size; i++)
+	{
+		cout << a[i] << " ";
+	}
+
+	delete[] c;
+}

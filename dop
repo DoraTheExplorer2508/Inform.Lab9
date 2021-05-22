@@ -1,0 +1,56 @@
+#include "Header.h"
+#include <cmath>
+
+double* proizvod(int size, double* a) {
+	double* b = new double[size-1];
+	for (int i = 0; i < size-1; i++) {
+		b[i] = a[i] * (size - i - 1);
+	}
+	return b;
+}
+
+double calculate(double* a, int size, double x)
+{
+	double val = 0;
+
+	for (int i = 0; i < size; i++)
+	{
+		val += a[i] * pow(x, size - i - 1);
+	}
+
+	return val;
+}
+
+double calc_rootmin(double* a, int size, double start, double end)
+{
+	double e = 0.0001;
+	double* d = proizvod(size, a);
+	size--;
+
+	while (end - start > e) {
+		double c = (start + end) / 2;
+		if (calculate(d, size, end) * calculate(d, size, c) < 0)
+			start = c;
+		else
+			end = c;
+	}
+
+	return (start + end) / 2;
+}
+
+double calc_rootmax(double* a, int size, double start, double end)
+{
+	double e = 0.0001;
+	double* d = proizvod(size, a);
+	size--;
+
+	while (end - start > e) {
+		double c = (start + end) / 2;
+		if (calculate(d, size, end) * calculate(d, size, c) > 0)
+			start = c;
+		else
+			end = c;
+	}
+
+	return (start + end) / 2;
+}

@@ -1,0 +1,8 @@
+#ifndef G_H
+#define G_H
+double* mult_polynom(double* a, int n, double* b, int m);
+double* proizvod(int size, double* a);
+double calculate(double* a, int size, double x);
+double calc_rootmin(double* a, int size, double start, double end);
+double calc_rootmax(double* a, int size, double start, double end);
+#endif

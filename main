@@ -1,49 +1,74 @@
 #include <iostream>
-using namespace std;
-
-int* mult_polynom(int* a, int n, int* b, int m) {
-
-	int* p = new int[n + 1]{ 0 };
-
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++) {
-			p[i + j] += (a[i] * b[j]);
-		}
-	}
-
-	return p;
-}
+#include "Header.h"
 
 int main()
 {
-	cout << "n = ";
+	std::cout << "Input number of polynoms = ";
 	int n;
-	cin >> n;
+	std::cin >> n;
 
-	int* c = new int[n];
-	for (int i = 0; i < n; i++)
-	{
-		cout << "c[" << i << "] = ";
-		cin >> c[i];
+	if (n <= 0 || std::cin.fail()) {
+		std::cout << "Incorrect number";
+		exit(1);
 	}
 
-	int* a = new int[] { 1, -c[0] };
+	double* c = new double[n];
+
+	for (int i = 0; i < n; i++)
+	{
+		std::cout << "c[" << i << "] = ";
+		std::cin >> c[i];
+		if (std::cin.fail()) {
+			std::cout << "Incorrect number";
+			exit(1);
+		}
+	}
+
+	double* a = new double[] { 1, -c[0] };
 	int size = 2;
 
 	for (int i = 1; i < n; i++)
 	{
-		int b[] = { 1, -c[i] };
+		double b[] = { 1, -c[i] };
 
-		int* p = mult_polynom(a, size, b, 2);
+		double* p = mult_polynom(a, size, b, 2);
 		size++;
 		delete[] a;
 		a = p;
 	}
 
+	std::cout << "Result: ";
+
 	for (int i = 0; i < size; i++)
 	{
-		cout << a[i] << " ";
+		std::cout << a[i] << " ";
+	}
+	std::cout << std::endl;
+
+	double start, end;
+	std::cout << "Start of interval: ";
+	std::cin >> start;
+	if (std::cin.fail()) {
+		std::cout << "Incorrect number. ";
+		exit(1);
+	}
+
+	std::cout << "End of interval: ";
+	if (std::cin.fail()) {
+		std::cout << "Incorrect number. ";
+		exit(1);
+	}
+	std::cin >> end;
+
+	if (start > end) {
+		std::cout << "Incorrect interval.";
+	}
+	else {
+		double min = calc_rootmin(a, size, start, end);
+		double max = calc_rootmax(a, size, start, end);
+		std::cout << "Min x = " << min << " Max x =" << max << std::endl;
 	}
 
 	delete[] c;
+	delete[] a;
 }

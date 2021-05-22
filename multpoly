@@ -1,0 +1,14 @@
+#include <iostream>
+#include "Header.h"
+
+double* mult_polynom(double* a, int n, double* b, int m) {
+
+	double* p = new double[n + m - 1]{ 0 };
+
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			p[i + j] += (a[i] * b[j]);
+		}
+	}
+	return p;
+}
